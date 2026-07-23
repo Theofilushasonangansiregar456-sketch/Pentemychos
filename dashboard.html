@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PenteMychos - Dashboard</title>
+    <style>
+        /* ==================== GLOBAL STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            /* Perpaduan gradasi biru langit cerah seperti web sekolah */
+            background: linear-gradient(180deg, #7dd3fc 0%, #bae6fd 40%, #f1f5f9 100%);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        /* ==================== HEADER & TOP BAR ==================== */
+        .main-header {
+            background-color: #ffffff;
+            border-bottom: 3px solid #059669; /* Aksen garis hijau khas web sekolah */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Ukuran Logo Header Proporsional */
+        .nav-logo {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #0f172a;
+            letter-spacing: 0.5px;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .nav-item {
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: #0284c7; /* Biru langit pekat saat aktif */
+        }
+
+        .logout-btn {
+            background-color: #ef4444;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .logout-btn:hover {
+            background-color: #dc2626;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px 20px 40px 20px;
+        }
+
+        /* Penempatan dan Efek Bayangan Logo Utama Pente Mychos */
+        .hero-logo {
+            height: 150px;
+            width: auto;
+            margin-bottom: 15px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 15px rgba(15, 23, 42, 0.15));
+        }
+
+        .hero-section h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            color: #0f172a;
+        }
+
+        .tagline {
+            font-style: italic;
+            color: #475569;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px 20px;
+        }
+
+        .workspace-header {
+            margin-bottom: 30px;
+            border-left: 5px solid #0284c7;
+            padding-left: 15px;
+        }
+
+        .workspace-header h2 {
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .workspace-header p {
+            color: #475569;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Layout Grid */
+        .grid-workspace {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* ==================== GLASSMORPHISM CARDS ==================== */
+        .card {
+            background: rgba(30, 27, 46, 0.95); /* Diadopsi dari warna form login ungu-gelapmu */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(15, 23, 42, 0.45);
+        }
+
+        .card-icon {
+            font-size: 2.6rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            color: #ffffff; /* Teks di dalam card dibuat kontras putih */
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .card-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #4f46e5, #2563eb); /* Tombol biru mirip tombol login */
+            color: white;
+            text-decoration: none;
+            padding: 11px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: opacity 0.2s;
+        }
+
+        .card-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="{{ url_for('static', filename='WhatsApp Image 2026-06-22 at 05.50.36.jpeg') }}" alt="Logo" class="nav-logo">
+                <span class="brand-name">PENTEMYCHOS</span>
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="nav-item active">🏡 Beranda</a>
+                <a href="#" class="nav-item">⭐ Visi dan Misi</a>
+                <a href="#" class="nav-item">📜 Postingan</a>
+                <a href="#" class="nav-item">📅 Agenda</a>
+                <a href="#" class="logout-btn">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <img src="{{ url_for('static', filename='WhatsApp Image 2026-06-22 at 05.50.36.jpeg') }}" alt="Pente Mychos Logo" class="hero-logo">
+        <h1>PENTEMYCHOS</h1>
+        <p class="tagline">"Strength, Honor, and Digital Innovation"</p>
+    </section>
+
+    <main class="container">
+        <div class="workspace-header">
+            <h2>Workspace Kelompok</h2>
+            <p>Taruh kodingan profesional, script IoT, data Cisco Packet Tracer, atau komponen bisnismu di bawah ini:</p>
+        </div>
+
+        <div class="grid-workspace">
+            <div class="card">
+                <span class="card-icon">🛠️</span>
+                <h3>IoT Module Workspace</h3>
+                <p>Integrasi sistem otomatisasi mikrokontroler hardware kelompok.</p>
+                <a href="#" class="card-btn">Buka Project</a>
+            </div>
+
+            <div class="card">
+                <span class="card-icon">🌐</span>
+                <h3>Network & Infrastructure</h3>
+                <p>Simulasi konfigurasi jaringan topologi dan kalkulator subnetwork.</p>
+                <a href="#" class="card-btn">Buka Project</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
